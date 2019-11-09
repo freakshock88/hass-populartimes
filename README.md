@@ -28,7 +28,7 @@ sensor:
 ```
 
 ## Links:
-[Home Assistant Community Topic](https://community.home-assistant.io/)
+[Home Assistant Community Topic](https://community.home-assistant.io/t/google-maps-places-popular-times-component/147362)
 
 ## Credits
 
