@@ -22,7 +22,7 @@ def setup_platform(hass, config, add_entities, discovery_info=None):
     api_key = config['api_key']
     id = config['id']
     name = config['name']
-    add_entities([PopularTimesSensor(api_key, id, name)])
+    add_entities([PopularTimesSensor(api_key, id, name)], True)
 
 
 class PopularTimesSensor(Entity):
