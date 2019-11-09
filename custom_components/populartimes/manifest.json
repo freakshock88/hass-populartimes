@@ -1,0 +1,8 @@
+{
+    "domain": "populartimes",
+    "name": "Popular Times",
+    "documentation": "",
+    "dependencies": [],
+    "codeowners": ["@freakshock88"],
+    "requirements": ["git+https://github.com/m-wrzr/populartimes@master#populartimes==2.0"]
+  }
