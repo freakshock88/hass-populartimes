@@ -1,4 +1,5 @@
 # hass-populartimes
+[![hacs_badge](https://img.shields.io/badge/HACS-Default-orange.svg)](https://github.com/custom-components/hacs)
 
 ## Description
 This is a custom component for Home Assistant.
@@ -15,7 +16,10 @@ For this reason I have limited the update time for the sensor to once every 10 m
 - Get the Places Id for which you want to see the popularity here: https://developers.google.com/maps/documentation/javascript/examples/places-placeid-finder
 
 ## Installation
-Put the contents of the populartimes folder in your home assistant custom_components folder.
+Either:
+1. Install via HACS
+2. Download files as zip and put the contents of the populartimes folder in your home assistant custom_components folder.
+
 
 ## Configuration
 
