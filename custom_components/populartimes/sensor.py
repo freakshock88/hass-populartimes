@@ -5,8 +5,11 @@ from homeassistant.const import (CONF_API_KEY,CONF_ID,CONF_NAME)
 from homeassistant.helpers.entity import Entity
 from requests.exceptions import ConnectionError as ConnectError, HTTPError, Timeout
 import homeassistant.helpers.config_validation as cv
+import logging
 import populartimes
 import voluptuous as vol
+
+_LOGGER = logging.getLogger(__name__)
 
 PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend(
     {
@@ -69,12 +72,6 @@ class PopularTimesSensor(Entity):
                 self._id
             )
 
-            try:
-                current_popularity = result["current_popularity"]
-                self._state = current_popularity
-            except:
-                self._state = 0
-
             self._attributes['address'] = result["address"]
             self._attributes['maps_name'] = result["name"]
             self._attributes['popularity_monday'] = result["populartimes"][0]["data"]
@@ -84,7 +81,9 @@ class PopularTimesSensor(Entity):
             self._attributes['popularity_friday'] = result["populartimes"][4]["data"]
             self._attributes['popularity_saturday'] = result["populartimes"][5]["data"]
             self._attributes['popularity_sunday'] = result["populartimes"][6]["data"]
-        except (ConnectError, HTTPError, Timeout, ValueError) as error:
-            _LOGGER.error(
-                "Unable to connect to Google Place API: %s", error)
-            self._state = None
+
+            popularity = result.get('current_popularity')
+            self._state = popularity
+                
+        except:
+            _LOGGER.error("No popularity info is returned by the populartimes library.")
