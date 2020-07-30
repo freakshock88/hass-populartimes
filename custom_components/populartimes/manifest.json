@@ -4,5 +4,5 @@
     "documentation": "",
     "dependencies": [],
     "codeowners": ["@freakshock88"],
-    "requirements": ["git+https://github.com/m-wrzr/populartimes@master#populartimes==2.0"]
+    "requirements": ["git+https://github.com/GrocerCheck/LivePopularTimes@master#LivePopularTimes==1.0"]
   }

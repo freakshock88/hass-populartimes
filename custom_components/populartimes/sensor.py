@@ -1,39 +1,36 @@
 """Support for Google Places API."""
 from datetime import timedelta
 from homeassistant.components.sensor import PLATFORM_SCHEMA
-from homeassistant.const import (CONF_API_KEY,CONF_ID,CONF_NAME)
+from homeassistant.const import (CONF_NAME,CONF_ADDRESS)
 from homeassistant.helpers.entity import Entity
 from requests.exceptions import ConnectionError as ConnectError, HTTPError, Timeout
 import homeassistant.helpers.config_validation as cv
 import logging
-import populartimes
+import livepopulartimes
 import voluptuous as vol
 
 _LOGGER = logging.getLogger(__name__)
 
 PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend(
     {
-        vol.Required(CONF_API_KEY): cv.string,
-        vol.Required(CONF_ID): cv.string,
         vol.Required(CONF_NAME): cv.string,
+        vol.Required(CONF_ADDRESS): cv.string,
     }
 )
 
 SCAN_INTERVAL = timedelta(minutes=10)
 
 def setup_platform(hass, config, add_entities, discovery_info=None):
-    api_key = config['api_key']
-    id = config['id']
     name = config['name']
-    add_entities([PopularTimesSensor(api_key, id, name)], True)
+    address = config['address']
+    add_entities([PopularTimesSensor(name, address)], True)
 
 
 class PopularTimesSensor(Entity):
 
-    def __init__(self, api_key, id, name):
-        self._api_key = api_key
-        self._id = id
+    def __init__(self, name, address):
         self._name = name
+        self._address = address
         self._state = None
 
         self._attributes = {
@@ -67,10 +64,7 @@ class PopularTimesSensor(Entity):
     def update(self):
         """Get the latest data from Google Places API."""
         try:
-            result = populartimes.get_id(
-                self._api_key,
-                self._id
-            )
+            result = livepopulartimes.get_populartimes_by_address(self._address)
 
             self._attributes['address'] = result["address"]
             self._attributes['maps_name'] = result["name"]
