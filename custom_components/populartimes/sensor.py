@@ -76,7 +76,7 @@ class PopularTimesSensor(Entity):
             self._attributes['popularity_saturday'] = result["populartimes"][5]["data"]
             self._attributes['popularity_sunday'] = result["populartimes"][6]["data"]
 
-            popularity = result.get('current_popularity')
+            popularity = result.get('current_popularity', 0)
             self._state = popularity
                 
         except:
