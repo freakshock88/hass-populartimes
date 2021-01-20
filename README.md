@@ -33,4 +33,4 @@ The address should preferably be in the following format:
 
 ## Credits
 
-This component uses the [livepopulartimes](https://github.com/m-wrzr/populartimes) library, which is a fork of the previously used [populartimes](https://github.com/m-wrzr/populartimes) library.
+This component uses the [LivePopularTimes](https://github.com/GrocerCheck/LivePopularTimes) library, which is a fork of the previously used [populartimes](https://github.com/m-wrzr/populartimes) library.
