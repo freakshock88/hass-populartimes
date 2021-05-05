@@ -4,5 +4,6 @@
     "documentation": "",
     "dependencies": [],
     "codeowners": ["@freakshock88"],
-    "requirements": ["git+https://github.com/freakshock88/LivePopularTimes@master#LivePopularTimes==1.1"]
+    "requirements": ["LivePopularTimes==1.3"],
+    "version": 0.24
   }
