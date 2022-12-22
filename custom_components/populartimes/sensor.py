@@ -1,5 +1,5 @@
 """Support for Google Places API."""
-from datetime import timedelta
+from datetime import datetime, timedelta
 from homeassistant.components.sensor import PLATFORM_SCHEMA
 from homeassistant.const import (CONF_NAME,CONF_ADDRESS)
 from homeassistant.helpers.entity import Entity
@@ -36,6 +36,7 @@ class PopularTimesSensor(Entity):
         self._attributes = {
             'maps_name': None,
             'address': None,
+            'popularity_is_live': None,
             'popularity_monday': None,
             'popularity_tuesday': None,
             'popularity_wednesday': None,
@@ -64,8 +65,10 @@ class PopularTimesSensor(Entity):
     def update(self):
         """Get the latest data from Google Places API."""
         try:
-            result = livepopulartimes.get_populartimes_by_address(self._address)
 
+            result = livepopulartimes.get_populartimes_by_address(self._address)
+            popularity = result.get('current_popularity', 0)
+                
             self._attributes['address'] = result["address"]
             self._attributes['maps_name'] = result["name"]
             self._attributes['popularity_monday'] = result["populartimes"][0]["data"]
@@ -76,10 +79,20 @@ class PopularTimesSensor(Entity):
             self._attributes['popularity_saturday'] = result["populartimes"][5]["data"]
             self._attributes['popularity_sunday'] = result["populartimes"][6]["data"]
 
-            popularity = result.get('current_popularity', 0)
+            dt = datetime.now()
+            weekdayIndex = dt.weekday()
+            hourIndex = dt.hour
+            historicalDataForWeekday = result["populartimes"][weekdayIndex]["data"]
+            historicalDataForHour = historicalDataForWeekday[hourIndex]
+
+            if popularity != None:
+               self._attributes['populatity_is_live'] = True
+
             if popularity == None:
-                popularity = 0
-                
+                popularity = historicalDataForHour
+                self._attributes['popularity_is_live'] = False
+                _LOGGER.warning("Current popularity info is not live but based on historical data.")
+
             self._state = popularity
                 
         except:

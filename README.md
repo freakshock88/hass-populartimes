@@ -28,6 +28,11 @@ sensor:
 The address should preferably be in the following format:
 "(location name) , full address, city, province/state/etc, country"
 
+## Live vs historical data
+Sometimes Google Maps does not provide live popularity data for the place you want to query.
+In that case the historical data is used to set the sensor state.
+To indicate this, the attribute `popularity_is_live` is set to `false`.
+
 ## Links:
 [Home Assistant Community Topic](https://community.home-assistant.io/t/google-maps-places-popular-times-component/147362)
 
