@@ -86,7 +86,7 @@ class PopularTimesSensor(Entity):
             historicalDataForHour = historicalDataForWeekday[hourIndex]
 
             if popularity != None:
-               self._attributes['populatity_is_live'] = True
+               self._attributes['popularity_is_live'] = True
 
             if popularity == None:
                 popularity = historicalDataForHour
