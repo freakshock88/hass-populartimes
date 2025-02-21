@@ -53,6 +53,11 @@ class PopularTimesSensor(Entity):
     @property
     def state(self):
         return self._state
+    
+    @property
+    def state_class(self):
+        """Return the state class of the sensor."""
+        return "measurement"  
 
     @property
     def unit_of_measurement(self):
